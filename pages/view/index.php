@@ -32,11 +32,26 @@ if($res->num_rows != 1) header('Location: /?404');
 // Monta o artigo para exibição:
 $art = $res->fetch_assoc();
 
+// Incrementa contador de views:
+$views = intval($art['views']) + 1;
+
+// SQL que atualiza o contador de views do artigo:
+$sql = <<<SQL
+
+UPDATE articles
+SET views = '{$views}' 
+WHERE aid = '{$art['aid']}';
+
+SQL;
+
+// Executa a query acima:
+$conn->query($sql);
+
 // Define o título desta página:
 $page_title = $art['title'];
 
 // Monta a view do autor e data de publicação:
-$authordate = "<span>Por {$art['name']}</span><span>em {$art['adatebr']}</span>";
+$authordate = "<span>Por {$art['name']}</span><span>&nbsp;em {$art['adatebr']}</span>";
 
 // Definir o conteúdo desta página:
 $page_content = <<<HTML
