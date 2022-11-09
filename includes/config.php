@@ -12,7 +12,9 @@ $c = array(
     'sitelogo' => '<i class="fa-solid fa-laptop-code fa-fw"></i>',
     'sitefavicon' => '/img/favicon.jpg',
     'titlesep' => '&middot;&middot;&middot;',
-    'siteemail' => 'admin@mulherestech.com'
+    'siteemail' => 'admin@mulherestech.com',
+    'ucookie' => 'mtuserdata',
+    'ucookiedays' => 365
 );
 
 /**
@@ -44,11 +46,34 @@ $s = array(
  **/
 $page_title = $page_content = $page_css = $page_js = '';
 
+// Inicializa arrays de uso geral:
+$user = array();
+
 // Dados de conexão com MySQL no XAMPP:
 $hostname = 'localhost';
 $username = 'root';
 $password = '';
 $database = 'mulherestech';
+
+/**
+ * Define a Regex de validação de senha:
+ * 
+ * IMPORTANTE!
+ * Conforme nossas "políticas de segurança", a senha do usuário deve seguir as
+ * seguintes regras:
+ *
+ *     • Entre 7 e 25 caracteres;
+ *     • Pelo menos uma letra minúscula;
+ *     • Pelo menos uma letra maiúscula;
+ *     • Pelo menos um número.
+ *
+ * A REGEX abaixo especifica essas regras:
+ *
+ *     • HTML5 → pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{7,25}$"
+ *     • JavaScript → \^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{7,25}$\
+ *     • PHP → "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{7,25}$/"
+ **/
+$rgpass = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{7,25}$";
 
 /**
  * Configura PHP para UTF-8:
